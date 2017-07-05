@@ -37,10 +37,10 @@ app.post("/urls", (req, res) => {
 
 app.get("/u/:shortURL", (req, res) => {
   let longURL = urlDatabase[req.params.shortURL];
-  if(longURL) {
-    res.redirect(longURL);
+  if(longURL === undefined) {
+    res.sendStatus(301);
   } else {
-  res.end('301 Moved Permanently.');
+    res.redirect(longURL);
   }
 });
 
@@ -48,6 +48,16 @@ app.get("/urls/:id", (req, res) => {
   let templateVars = { shortURL: req.params.id,
                        longURL: urlDatabase[req.params.id] };
   res.render("urls_show", templateVars);
+});
+
+app.post("/urls/:id/delete", (req, res) => {
+  delete urlDatabase[req.params.id];
+  res.redirect("/urls");
+});
+
+app.post("/urls/:id", (req, res) => {
+  urlDatabase[req.params.id] = req.body.longURL;
+  res.redirect("/urls");
 });
 
 app.listen(PORT, () => {
