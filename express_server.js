@@ -12,7 +12,6 @@ app.set("view engine", "ejs");
 var urlDatabase = {
   "b2xVn2": "http://www.lighthouselabs.ca",
   "9sm5xK": "http://www.google.com",
-  // req.body.longURL:
 };
 
 
@@ -21,7 +20,7 @@ app.get("/urls", (req, res) => {
   res.render("urls_index", templateVars);
 });
 
-app.get("/urls/:id", (req, res) => {
+app.get("/url/:id", (req, res) => {
   let templateVars = { shortURL: req.params.id,
                        longURL: urlDatabase[req.params.id] };
   res.render("urls_show", templateVars);
@@ -32,8 +31,12 @@ app.get("/urls/new", (req, res) => {
 });
 
 app.post("/urls", (req, res) => {
+  const randomString = generateRandomString();
+  urlDatabase[randomString] = req.body.longURL;
+  res.redirect(`http://localhost:8080/urls/${randomString}`);
   console.log(req.body);  // debug statement to see POST parameters
-  res.render("Ok");         // Respond with 'Ok' (we will replace this)
+  console.log(urlDatabase);
+  res.send("Ok");         // Respond with 'Ok' (we will replace this)
 });
 
 app.listen(PORT, () => {
@@ -46,6 +49,6 @@ function generateRandomString() {
   var randomString = "";
   for (var i = 6; i > 0; --i) {
     randomString += chars[Math.floor(Math.random() * chars.length)];
-    return result;
   }
+  return randomString;
 }
