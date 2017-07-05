@@ -33,10 +33,19 @@ app.get("/urls/new", (req, res) => {
 
 app.post("/urls", (req, res) => {
   console.log(req.body);  // debug statement to see POST parameters
-  res.send("Ok");         // Respond with 'Ok' (we will replace this)
+  res.render("Ok");         // Respond with 'Ok' (we will replace this)
 });
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
 });
 
+
+function generateRandomString() {
+  var chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  var randomString = "";
+  for (var i = 6; i > 0; --i) {
+    randomString += chars[Math.floor(Math.random() * chars.length)];
+    return result;
+  }
+}
