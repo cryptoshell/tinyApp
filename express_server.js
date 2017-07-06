@@ -1,7 +1,7 @@
 "use strict";
 
-var express = require("express");
-var app = express();
+const express = require("express");
+const app = express();
 var PORT = process.env.PORT || 8080; // default port 8080
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
@@ -11,13 +11,36 @@ app.use(cookieParser());
 
 app.set("view engine", "ejs");
 
-var urlDatabase = {
+const urlDatabase = {
   "b2xVn2": "http://www.lighthouselabs.ca",
   "9sm5xK": "http://www.google.com",
 };
 
+const users = {
+  "userRandomID": {
+    id: "userRandomID",
+    email: "user@example.com",
+    password: "purple-monkey-dinosaur"
+  },
+ "user2RandomID": {
+    id: "user2RandomID",
+    email: "user2@example.com",
+    password: "dishwasher-funk"
+  }
+}
+
+function generateRandomString() {
+  let chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  let randomString = "";
+  for (let i = 6; i > 0; --i) {
+    randomString += chars[Math.floor(Math.random() * chars.length)];
+  }
+  return randomString;
+}
+
+// ROUTES
 app.get("/", (req, res) => {
-  res.end("Hello!");
+  res.redirect("/urls");
 });
 
 app.get("/urls", (req, res) => {
@@ -76,16 +99,20 @@ app.post("/logout", (req, res) => {
   res.redirect("/urls");
 });
 
+app.get("/register", (req, res) => {
+  let templateVars = { username: req.cookies["username"] };
+  res.render("_register", templateVars);
+});
+
+app.post("/register", (req, res) => {
+  let userRandomID = generateRandomString();
+  users.userRandomID = { id: userRandomID,
+                        email: req.body.email,
+                        password: req.body.password };
+  res.cookie("user_id", userRandomID);
+  res.redirect("/urls");
+});
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
 });
-
-
-function generateRandomString() {
-  var chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  var randomString = "";
-  for (var i = 6; i > 0; --i) {
-    randomString += chars[Math.floor(Math.random() * chars.length)];
-  }
-  return randomString;
-}
