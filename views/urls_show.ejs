@@ -5,14 +5,13 @@
   </head>
   <body>
    <header>
-      <% include ./partials/_header.ejs %>
+      <% include ./partials/_header %>
     </header>
-    <h1>TinyApp</h1>
     <form action="/urls/<%= shortURL %>" method="POST" style="margin:150px;">
       <h2>ShortURL: <%= shortURL %></h2>
       <label for="longURL">Enter a new URL:</label>
-      <input id="longURL" type="text" name="longURL" placeholder="http://" style="width: 300px">
-      <input type="submit" value="Update" style="background-color: yellow">
+      <input id="longURL" type="text" name="longURL" placeholder="http://" style="width: 300px"></input>
+      <input type="submit" value="Update" style="background-color: yellow"></input>
     </form>
   </body>
 </html>

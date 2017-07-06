@@ -4,12 +4,22 @@
   <title>TinyApp</title>
 </head>
 <body>
-  <h1>TinyApp</h1>
-  <form action="/login" method="POST" style="display: inline-block">
-    <h2>Sign in</h2>
-    <label for="username">Enter Username:</label>
-    <input id="username" type="text" name="username" placeholder="Type username here..." style="width: 300px"></input>
-    <input type="submit" value="Sign in" style="background-color: pink"></input>
-  </form>
+  <header>
+    <a href="/urls">HOME</a> &#10050 <a href="/urls/new">NEW</a>
+    <h1>TinyApp&#9731</h1>
+  </header>
+  <% if (username){ %>
+    <h2 style="display: inline-block;">Welcome! <%= username %></h2>
+    <form action="/logout" method="POST" style="display: inline-block;">
+      <input type="submit" value="logout" style="display: inline-block;"></input>
+    </form>
+  <% }else{ %>
+    <form action="/login" method="POST" style="display: inline-block">
+      <h2>Sign in</h2>
+      <label for="username">Enter Username:</label>
+      <input id="username" type="text" name="username" placeholder="Type username here..." style="width: 200px"></input>
+      <input type="submit" value="Sign in" style="background-color: pink"></input>
+    </form>
+  <% } %>
 </body>
 </html>

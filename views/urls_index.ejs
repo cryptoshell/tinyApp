@@ -10,12 +10,12 @@
     <h2>URLs:</h2>
     <ul>
       <% for(var url in urls) { %>
-        <li><%= url %> &#8594 <%= urls[url] %>
+        <li><%= url %> &#10144; <%= urls[url] %>
         <form method="POST" action='/urls/<%= url %>' style="display: inline-block">
           <a href="/urls/<%= url %>">Edit</a>
         </form>
         <form method="POST" action='/urls/<%= url %>/delete' style="display: inline-block">
-          <input type="submit" value="Delete" style="background-color: lightgreen; width: 50px"></input>
+          <input type="submit" value="Delete &#10008" style="background-color: lightgreen; width: 70px"></input>
         </form></li>
       <% } %>
     </ul>
