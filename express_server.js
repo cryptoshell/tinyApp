@@ -38,6 +38,16 @@ function generateRandomString() {
   return randomString;
 }
 
+function emailChecker(email) {
+  for (let user in users) {
+    if(user.email == email) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+}
+
 // ROUTES
 app.get("/", (req, res) => {
   res.redirect("/urls");
@@ -45,12 +55,12 @@ app.get("/", (req, res) => {
 
 app.get("/urls", (req, res) => {
   let templateVars = { urls: urlDatabase,
-                       username: req.cookies["username"] };
+                       user: users[req.cookies["user_id"]] };
   res.render("urls_index", templateVars);
 });
 
 app.get("/urls/new", (req, res) => {
-  let templateVars = { username: req.cookies["username"] };
+  let templateVars = { user: users[req.cookies["user_id"]] };
   res.render("urls_new", templateVars);
 });
 
@@ -74,7 +84,7 @@ app.get("/u/:shortURL", (req, res) => {
 app.get("/urls/:id", (req, res) => {
   let templateVars = { shortURL: req.params.id,
                        longURL: urlDatabase[req.params.id],
-                       username: req.cookies["username"] };
+                       user: users[req.cookies["user_id"]] };
   res.render("urls_show", templateVars);
 });
 
@@ -100,17 +110,24 @@ app.post("/logout", (req, res) => {
 });
 
 app.get("/register", (req, res) => {
-  let templateVars = { username: req.cookies["username"] };
+  let templateVars = { user: users[req.cookies["user_id"]] };
   res.render("_register", templateVars);
 });
 
 app.post("/register", (req, res) => {
-  let userRandomID = generateRandomString();
-  users.userRandomID = { id: userRandomID,
-                        email: req.body.email,
-                        password: req.body.password };
-  res.cookie("user_id", userRandomID);
-  res.redirect("/urls");
+  if(req.body.email === "" || req.body.password === "") {
+    res.status(400).send("400 - Bad Request");
+  }
+  if (emailChecker(req.body.email)) {
+    res.status(400).send("400 - Bad Request");
+  } else {
+    let userRandomID = generateRandomString();
+    users.userRandomID = { id: userRandomID,
+                          email: req.body.email,
+                          password: req.body.password };
+    res.cookie("user_id", userRandomID);
+    res.redirect("/urls");
+  }
 });
 
 app.listen(PORT, () => {
