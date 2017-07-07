@@ -7,11 +7,20 @@
    <header>
       <% include ./partials/_header %>
     </header>
-    <form action="/urls/<%= shortURL %>" method="POST" style="margin:150px;">
-      <h2>ShortURL: <%= shortURL %></h2>
-      <label for="longURL">Enter a new URL:</label>
-      <input id="longURL" type="text" name="longURL" placeholder="http://" style="width: 300px"></input>
-      <input type="submit" value="Update" style="background-color: yellow"></input>
-    </form>
+    <% if (user){ %>
+      <form action="/urls/<%= shortURL %>" method="POST" style="margin:150px;">
+        <h2>ShortURL: <%= shortURL %></h2>
+        <label for="longURL">Enter a new URL:</label>
+        <input id="longURL" type="text" name="longURL" placeholder="http://" style="width: 300px"></input>
+        <input type="submit" value="Update" style="background-color: yellow"></input>
+      </form>
+    <% } else { %>
+      <br/>
+      <br/>
+      <b/>
+      <center><a href="/register" style="color: blue;">Register Now!</a></center>
+      <center><p>or</p></center>
+      <center><a href="/login" style="color: blue">Login</a> to access URLs!</center>
+    <% } %>
   </body>
 </html>

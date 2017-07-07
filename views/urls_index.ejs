@@ -9,17 +9,24 @@
     </header>
     <% if (user){ %>
       <h2>URLs:</h2>
-      <ul>
-        <% for(var url in urls) { %>
-          <li><%= url %> &#10144; <%= urls[url].longURL %>
+      <% for(let url in urls) { %>
+        <ul>
+          <li><%= url %> &#10144; <%= urls[url] %>
           <form method="POST" action='/urls/<%= url %>' style="display: inline-block">
             <a href="/urls/<%= url %>">Edit</a>
           </form>
           <form method="POST" action='/urls/<%= url %>/delete' style="display: inline-block">
             <input type="submit" value="Delete &#10008" style="background-color: red; color: white; width: 70px"></input>
           </form></li>
-        <% } %>
-      </ul>
+        </ul>
+      <% } %>
+    <% } else { %>
+      <br/>
+      <br/>
+      <b/>
+      <center><a href="/register" style="color: blue;">Register Now!</a></center>
+      <center><p>or</p></center>
+      <center><a href="/login" style="color: blue">Login</a> to access URLs!</center>
     <% } %>
   </body>
 </html>
