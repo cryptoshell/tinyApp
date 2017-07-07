@@ -4,12 +4,16 @@
   <title>TinyApp</title>
 </head>
 <body bgcolor="#B2B48C">
-  <header>
-    <a href="/urls">Home</a> / <a href="/urls/new">New</a> / <a href="/register">Register</a> / <a href="/login">Login</a>
-    <form action="/logout" method="POST" style="float: right">
+  <a href="/urls">Home</a>
+  <a href="/urls/new">New</a>
+  <% if (user) { %>
+    <center><h1 style="border-style: solid;">TinyApp&#9731</h1></center>
+    <form action="/logout" method="POST" style="position: absolute; top: 2px; right: 0; width: 100px; text-align:right;">
       <input type="submit" value="logout" style="background-color: black; color: white"></input>
     </form>
-    <center><h1 style="border-style: solid;">TinyApp&#9731</h1></center>
-  </header>
+    <center><h2 style="display: inline-block;">Welcome <%= user.id %>! </h2></center>
+  <% }else{ %>
+    <a href="/register" style="position: absolute; top: 6px; right: 0; width: 100px; text-align:right;">Register</a> <a href="/login" style="position: absolute; top: 6px; right: 60px; width: 100px; text-align:right;">Login</a>
+  <% } %>
 </body>
 </html>

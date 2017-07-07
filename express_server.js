@@ -54,12 +54,12 @@ app.get("/", (req, res) => {
 
 app.get("/urls", (req, res) => {
   let templateVars = { urls: urlDatabase,
-                       user: users[userByEmail(req.body.email)] };
+                       user: users[req.cookies["user_id"]] };
   res.render("urls_index", templateVars);
 });
 
 app.get("/urls/new", (req, res) => {
-  let templateVars = { user: users[userByEmail(req.body.email)] };
+  let templateVars = { user: users[req.cookies["user_id"]] };
   res.render("urls_new", templateVars);
 });
 
@@ -83,7 +83,7 @@ app.get("/u/:shortURL", (req, res) => {
 app.get("/urls/:id", (req, res) => {
   let templateVars = { shortURL: req.params.id,
                        longURL: urlDatabase[req.params.id],
-                       user: users[userByEmail(req.body.email)] };
+                       user: users[req.cookies["user_id"]] };
   res.render("urls_show", templateVars);
 });
 
@@ -106,7 +106,7 @@ app.post("/login", (req, res) => {
       res.status(403).send("403 - Forbidden <br> Incorrect password!")
   } else {
     res.cookie('user_id', userByEmail(req.body.email));
-    res.redirect("/");
+    res.redirect("/urls");
   }
 });
 
@@ -116,18 +116,18 @@ app.post("/logout", (req, res) => {
 });
 
 app.get("/register", (req, res) => {
-  let templateVars = { user: users[userByEmail(req.body.email)] };
+  let templateVars = { user: users[req.cookies["user_id"]] };
   res.render("_register", templateVars);
 });
 
 app.post("/register", (req, res) => {
-  if(req.body.email === "" || req.body.password === "") {
+  if (req.body.email === "" || req.body.password === "") {
     res.status(400).send("400 - Bad Request <br> Email or password cannot be blank!");
-  } else if (!!users[userByEmail(req.body.email)]) {
+  } else if (users[userByEmail(req.body.email)]) {
     res.status(400).send("400 - Bad Request <br> That email already exists!");
   } else {
     let userRandomID = generateRandomString();
-    users.userRandomID = { id: userRandomID,
+    users[userRandomID] = { id: userRandomID,
                           email: req.body.email,
                           password: req.body.password };
     res.cookie("user_id", userRandomID);
@@ -136,7 +136,7 @@ app.post("/register", (req, res) => {
 });
 
 app.get("/login", (req, res) => {
-  let templateVars = { user: users[userByEmail(req.body.email)] };
+  let templateVars = { user: users[req.cookies["user_id"]] };
   res.render("_login", templateVars);
 });
 
