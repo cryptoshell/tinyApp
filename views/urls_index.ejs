@@ -8,6 +8,8 @@
       <% include ./partials/_header %>
     </header>
     <h2>URLs:</h2>
+    <br/>
+    <center><h2 style="display: inline-block;">Welcome! <%= user%> </h2></center>
     <ul>
       <% for(var url in urls) { %>
         <li><%= url %> &#10144; <%= urls[url] %>
@@ -15,7 +17,7 @@
           <a href="/urls/<%= url %>">Edit</a>
         </form>
         <form method="POST" action='/urls/<%= url %>/delete' style="display: inline-block">
-          <input type="submit" value="Delete &#10008" style="background-color: lightgreen; width: 70px"></input>
+          <input type="submit" value="Delete &#10008" style="background-color: red; color: white; width: 70px"></input>
         </form></li>
       <% } %>
     </ul>

@@ -3,23 +3,13 @@
 <head>
   <title>TinyApp</title>
 </head>
-<body>
+<body bgcolor="#B2B48C">
   <header>
-    <a href="/urls">Home</a> / <a href="/urls/new">New</a> / <a href="/register">Register</a>
-    <h1>TinyApp&#9731</h1>
+    <a href="/urls">Home</a> / <a href="/urls/new">New</a> / <a href="/register">Register</a> / <a href="/login">Login</a>
+    <form action="/logout" method="POST" style="float: right">
+      <input type="submit" value="logout" style="background-color: black; color: white"></input>
+    </form>
+    <center><h1 style="border-style: solid;">TinyApp&#9731</h1></center>
   </header>
-  <% if (user){ %>
-    <h2 style="display: inline-block;">Welcome! <%= user %></h2>
-    <form action="/logout" method="POST" style="display: inline-block;">
-      <input type="submit" value="logout" style="display: inline-block;"></input>
-    </form>
-  <% }else{ %>
-    <form action="/login" method="POST" style="display: inline-block">
-      <h2>Sign in</h2>
-      <label for="user_id">Enter User ID:</label>
-      <input id="user_id" type="text" name="user_id" placeholder="Type user ID here..." style="width: 200px"></input>
-      <input type="submit" value="Sign in" style="background-color: pink"></input>
-    </form>
-  <% } %>
 </body>
 </html>
