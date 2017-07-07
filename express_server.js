@@ -12,8 +12,9 @@ app.use(cookieParser());
 app.set("view engine", "ejs");
 
 const urlDatabase = {
-  "b2xVn2": "http://www.lighthouselabs.ca",
-  "9sm5xK": "http://www.google.com",
+  "h2lm1p": { longURL: "http://www.lighthouselabs.ca",
+                owner: "a@a.com"
+            }
 };
 
 const users = {
@@ -27,7 +28,7 @@ const users = {
     email: "user2@example.com",
     password: "dishwasher-funk"
   }
-}
+};
 
 function generateRandomString() {
   let chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -59,16 +60,21 @@ app.get("/urls", (req, res) => {
 });
 
 app.get("/urls/new", (req, res) => {
-  let templateVars = { user: users[req.cookies["user_id"]] };
-  res.render("urls_new", templateVars);
+  if (users[req.cookies["user_id"]]) {
+    let templateVars = { user: users[req.cookies["user_id"]] };
+    res.render("urls_new", templateVars);
+  } else {
+    res.redirect("/login");
+  }
 });
 
 app.post("/urls", (req, res) => {
-  const randomString = generateRandomString();
-  urlDatabase[randomString] = req.body.longURL;
+  const creator = req.cookies["user_id"];
+  const shortURL = generateRandomString();
+  urlDatabase[shortURL] = {longURL: req.body.longURL, owner: creator};
   console.log(req.body);  // debug statement to see POST parameters
   console.log(urlDatabase);
-  res.redirect(`/urls/${randomString}`);
+  res.redirect("/urls");
 });
 
 app.get("/u/:shortURL", (req, res) => {
@@ -88,14 +94,23 @@ app.get("/urls/:id", (req, res) => {
 });
 
 app.post("/urls/:id/delete", (req, res) => {
-  delete urlDatabase[req.params.id];
-  res.redirect("/urls");
+  if(urlDatabase[req.params.id].owner === req.cookies["user_id"]) {
+    delete urlDatabase[req.params.id];
+    res.redirect("/urls");
+  } else {
+    res.send("Not a creator of this URL!");
+  }
 });
 
 // Updated long URL using POST
 app.post("/urls/:id", (req, res) => {
-  urlDatabase[req.params.id] = req.body.longURL;
-  res.redirect("/urls");
+  if(urlDatabase[req.params.id].owner === req.cookies["user_id"]) {
+    urlDatabase[req.params.id].longURL = req.body.longURL;
+    console.log(req.body.longURL)
+    res.redirect("/urls");
+  } else {
+    res.send("Not a creator, cannot edit!");
+  }
 });
 
 app.post("/login", (req, res) => {

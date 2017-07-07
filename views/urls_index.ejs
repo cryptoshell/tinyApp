@@ -7,18 +7,19 @@
     <header>
       <% include ./partials/_header %>
     </header>
-    <h2>URLs:</h2>
-    <br/>
-    <ul>
-      <% for(var url in urls) { %>
-        <li><%= url %> &#10144; <%= urls[url] %>
-        <form method="POST" action='/urls/<%= url %>' style="display: inline-block">
-          <a href="/urls/<%= url %>">Edit</a>
-        </form>
-        <form method="POST" action='/urls/<%= url %>/delete' style="display: inline-block">
-          <input type="submit" value="Delete &#10008" style="background-color: red; color: white; width: 70px"></input>
-        </form></li>
-      <% } %>
-    </ul>
+    <% if (user){ %>
+      <h2>URLs:</h2>
+      <ul>
+        <% for(var url in urls) { %>
+          <li><%= url %> &#10144; <%= urls[url].longURL %>
+          <form method="POST" action='/urls/<%= url %>' style="display: inline-block">
+            <a href="/urls/<%= url %>">Edit</a>
+          </form>
+          <form method="POST" action='/urls/<%= url %>/delete' style="display: inline-block">
+            <input type="submit" value="Delete &#10008" style="background-color: red; color: white; width: 70px"></input>
+          </form></li>
+        <% } %>
+      </ul>
+    <% } %>
   </body>
 </html>
