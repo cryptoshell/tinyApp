@@ -8,8 +8,7 @@ The app will allow users to shorten long URLs much like TinyURL.com and bit.ly d
 
 ## Final Product
 !["Home Page"](/tinyAppScreenshots/tinyApp-1.png "Home Page Alerts Registration or Login")
-!["Main Page"](/tinyAppScreenshots/tinyApp-2.png "Main Page")
-!["Registration Page"](/tinyAppScreenshots/tinyApp-3.png "Registration Page")
+!["Registration Page"](/tinyAppScreenshots/tinyApp-3.png "Registration Page")!["Login Page"](/tinyAppScreenshots/tinyApp-2.png "Login Page")
 !["Main Page"](/tinyAppScreenshots/tinyApp-4.png "Main Page Showing URLs")
 !["New URL Page"](/tinyAppScreenshots/tinyApp-5.png "Create New Short URL Page")
 
