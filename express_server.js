@@ -1,13 +1,14 @@
 "use strict";
 
+// Set port and require packages
+var PORT = process.env.PORT || 8080; // default port 8080
 const express = require("express");
 const app = express();
-var PORT = process.env.PORT || 8080; // default port 8080
 const bodyParser = require("body-parser");
 const cookieSession = require('cookie-session');
 const bcrypt = require('bcrypt');
 
-
+// Encrypted cookies
 app.use(cookieSession({
   name: 'session',
   keys: ['key1', 'key2'],
@@ -18,10 +19,13 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.set("view engine", "ejs");
 
+// Contains user's short:long URLs
 const urlDatabase = {};
 
+// Contains user info: id, email, pw
 const users = {};
 
+// Random string for user's ID
 function generateRandomString() {
   let chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
   let randomString = "";
@@ -31,6 +35,7 @@ function generateRandomString() {
   return randomString;
 }
 
+// Get user's ID by email
 function userByEmail(email) {
   for (let uid in users) {
     if(users[uid].email === email) {
@@ -106,25 +111,13 @@ app.get("/u/:shortURL", (req, res) => {
 
 // Page shows short:long URLs of logged-in user
 app.get("/urls/:id", (req, res) => {
-  if(!users[req.params.id]) {
+  if(urlDatabase[req.params.id]) {
     res.sendStatus(404);
   } else {
     let templateVars = { shortURL: req.params.id,
                          longURL: urlDatabase[req.params.id],
                          user: users[req.session.user_id] };
     res.render("urls_show", templateVars);
-  }
-});
-
-// Only the creator of the link can delete it
-app.post("/urls/:id/delete", (req, res) => {
-  const userID = req.session.user_id;
-  const shortURL = req.params.id;
-  if(urlDatabase[userID][shortURL]) {
-    delete urlDatabase[userID][shortURL];
-    res.redirect("/urls");
-  } else {
-    res.send("Not a creator of this URL!");
   }
 });
 
@@ -140,6 +133,19 @@ app.post("/urls/:id", (req, res) => {
     res.send("Not a creator, cannot edit!");
   }
 });
+
+// Only the creator of the link can delete it
+app.post("/urls/:id/delete", (req, res) => {
+  const userID = req.session.user_id;
+  const shortURL = req.params.id;
+  if(urlDatabase[userID][shortURL]) {
+    delete urlDatabase[userID][shortURL];
+    res.redirect("/urls");
+  } else {
+    res.send("Not a creator of this URL!");
+  }
+});
+
 
 /* REGISTRATION && LOGIN/LOGOUT FEATURES BELOW */
 
