@@ -5,15 +5,17 @@
 </head>
 <body bgcolor="#B2B48C">
   <a href="/urls">Home</a>
-  <a href="/urls/new">New</a>
+  <a href="/urls/new">Create a New Short Link</a>
+  <a href="/register">Register</a>
   <center><h1 style="border-style: solid;">TinyApp&#9731</h1></center>
   <% if (user) { %>
-    <form action="/logout" method="POST" style="position: absolute; top: 2px; right: 0; width: 100px; text-align:right;">
+    <p style="position: absolute; top: 6px; right: 4px; width: 500px; text-align:right;">Logged in as <%= user.email %></p>
+    <form action="/logout" method="POST" style="position: absolute; top: 0px; right: 4px; width: 100px; text-align:right;">
       <input type="submit" value="logout" style="background-color: black; color: white"></input>
     </form>
     <center><h2 style="display: inline-block;">Welcome <%= user.email %>! </h2></center>
+    <br/>
   <% }else{ %>
-    <a href="/register" style="float: right">Register</a> <a href="/login">Login</a>
   <% } %>
 </body>
 </html>

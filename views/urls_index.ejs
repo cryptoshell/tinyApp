@@ -8,7 +8,7 @@
       <% include ./partials/_header %>
     </header>
     <% if (user){ %>
-      <h2>URLs:</h2>
+      <h3>Your Short Links:</h3>
       <% for(let url in urls) { %>
         <ul>
           <li><%= url %> &#10144; <%= urls[url] %>
