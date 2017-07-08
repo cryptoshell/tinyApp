@@ -38,7 +38,7 @@ function generateRandomString() {
 // Get user's ID by email
 function userByEmail(email) {
   for (let uid in users) {
-    if(users[uid].email === email) {
+    if (users[uid].email === email) {
       return uid;
     }
   }
@@ -98,7 +98,7 @@ app.get("/u/:shortURL", (req, res) => {
   let longURL;
   for (let user in urlDatabase) {
     longURL = urlDatabase[user][req.params.shortURL];
-    if(longURL) {
+    if (longURL) {
       break;
     }
   }
@@ -111,7 +111,7 @@ app.get("/u/:shortURL", (req, res) => {
 
 // Page shows short:long URLs of logged-in user
 app.get("/urls/:id", (req, res) => {
-  if(urlDatabase[req.params.id]) {
+  if (urlDatabase[req.params.id]) {
     res.sendStatus(404);
   } else {
     let templateVars = { shortURL: req.params.id,
@@ -125,7 +125,7 @@ app.get("/urls/:id", (req, res) => {
 app.post("/urls/:id", (req, res) => {
   const userID = req.session.user_id;
   const shortURL = req.params.id;
-  if(urlDatabase[userID][shortURL]) {
+  if (urlDatabase[userID][shortURL]) {
     urlDatabase[userID][shortURL] = req.body.longURL;
     console.log(req.body.longURL, req.body.longURL);
     res.redirect("/urls");
@@ -138,7 +138,7 @@ app.post("/urls/:id", (req, res) => {
 app.post("/urls/:id/delete", (req, res) => {
   const userID = req.session.user_id;
   const shortURL = req.params.id;
-  if(urlDatabase[userID][shortURL]) {
+  if (urlDatabase[userID][shortURL]) {
     delete urlDatabase[userID][shortURL];
     res.redirect("/urls");
   } else {
@@ -181,7 +181,7 @@ app.get("/login", (req, res) => {
 // Cannot login if wrong email or incorrect password
 app.post("/login", (req, res) => {
   const user = userByEmail(req.body.email);
-  if(!users[user]){
+  if (!users[user]){
     res.status(403).send("403 - Forbidden <br> Email does not exist!");
   } else if (!bcrypt.compareSync(req.body.password, users[user].password)) {
     res.status(403).send("403 - Forbidden <br> Incorrect password!");
