@@ -25,10 +25,10 @@
           <td><%= url %></td>
           <td><%= urls[url] %>
           <td align="right"><form method="POST" action='/urls/<%= url %>' style="display: inline-block;">
-            <a href="/urls/<%= url %>" class="btn btn-info btn-xs">Edit</a>
+            <a href="/urls/<%= url %>" class="btn btn-info btn-sm">Edit</a>
           </form>
           <form method="POST" action='/urls/<%= url %>/delete' style="display: inline-block;">
-            <input type="submit" value="Delete &#10008" class="btn btn-danger btn-xs"></input>
+            <input type="submit" value="Delete &#10008" class="btn btn-danger btn-sm"></input>
           </form></td>
         </tr>
       <% } %>

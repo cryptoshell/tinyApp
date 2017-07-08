@@ -118,7 +118,7 @@ app.get("/u/:shortURL", (req, res) => {
 // Page shows short:long URLs of logged-in user
 app.get("/urls/:id", (req, res) => {
   if (urlDatabase[req.params.id]) {
-    res.sendStatus(404);
+    res.sendStatus(400);
   } else {
     let templateVars = { shortURL: req.params.id,
       longURL: urlDatabase[req.params.id],

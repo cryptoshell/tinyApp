@@ -11,17 +11,37 @@
       <% include ./partials/_header %>
     </header>
     <% if (user){ %>
-      <form action="/urls/<%= shortURL %>" method="POST" style="margin:150px;">
-        <h2>ShortURL: <%= shortURL %></h2>
-        <label for="longURL">Enter a new URL:</label>
-        <input id="longURL" type="text" name="longURL" placeholder="http://" style="width: 300px"></input>
-        <input type="submit" value="Update" style="background-color: yellow"></input>
-      </form>
+      <div class="container">
+      <div class="row">
+        <div class="Absolute-Center is-Responsive">
+          <div class="form-login">
+            <br/>
+            <h3>ShortURL: <%= shortURL %></h3>
+            <form action="/urls/<%= shortURL %>" method="POST">
+              <input id="longURL" type="text" name="longURL" placeholder="Enter a new 'http://example.com'" class="form-control input-sm chat-input" </input>
+              <div class="wrapper">
+              <span class="group-btn">
+                <br/>
+                <center><input type="submit" value="Update" class="btn btn-info btn-sm" style="width:150px;height:30px"><i class="fa fa-sign-in"></i></input></center>
+              </span>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      </div>
     <% } else { %>
+      <br/>
+      <br/>
+      <br/>
       <center>
-      <a href="/register" class="btn btn-info btn-xs">Register Now!</a>
-      <p>or</p>
-      <a href="/login" style="color: blue">Login</a> to access URLs!
+        <a href="/register" class="btn btn-info btn-lg">Register Now!</a>
+        <br/>
+        <br/>
+        <h4>or</h4>
+        <br/>
+        <a href="/login" class="btn btn-info btn-lg">Login</a>
+        <h5>to access URLs!</h5>
       </center>
     <% } %>
   </body>
