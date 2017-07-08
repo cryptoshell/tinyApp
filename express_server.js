@@ -9,13 +9,9 @@ const cookieSession = require('cookie-session');
 const bcrypt = require('bcrypt');
 
 // Bootstrap and Jquery for styling
-// redirect root
 app.use('/', express.static(__dirname + '/www'));
-// redirect bootstrap JS
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
-// redirect JS jQuery
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist'));
-// redirect CSS bootstrap
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 
 // Encrypted cookies with expiration set to 24hrs
