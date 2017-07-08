@@ -91,7 +91,11 @@ app.post("/urls", (req, res) => {
   const shortURL = generateRandomString();
   if (urlDatabase[userID] === undefined) {
     urlDatabase[userID] = {};
-    urlDatabase[userID][shortURL] = req.body.longURL;
+    if(req.body.longURL !== "") {
+      urlDatabase[userID][shortURL] = req.body.longURL;
+    } else {
+      res.send("Cannot enter a blank URL");
+    }
   } else {
     urlDatabase[userID][shortURL] = req.body.longURL;
   }
@@ -132,9 +136,12 @@ app.post("/urls/:id", (req, res) => {
   const userID = req.session.user_id;
   const shortURL = req.params.id;
   if (urlDatabase[userID][shortURL]) {
-    urlDatabase[userID][shortURL] = req.body.longURL;
-    console.log(req.body.longURL, req.body.longURL);
-    res.redirect("/urls");
+    if(req.body.longURL !== "") {
+      urlDatabase[userID][shortURL] = req.body.longURL;
+      res.redirect("/urls");
+    } else {
+      res.send("Cannot enter a blank URL");
+    }
   } else {
     res.send("Not a creator, cannot edit!");
   }

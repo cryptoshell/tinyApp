@@ -13,7 +13,7 @@
     <br/>
     <% if (user){ %>
       <div class="container">
-      <h3>Your Short Links:</h3>
+      <h3>Your Short Links: <a href="/urls/new" class="btn btn-info btn-md" style="float: right">Create New Link</a></h3>
       <table class="table table-hover">
         <tr>
           <th>Short URL</th>
@@ -25,13 +25,14 @@
           <td><%= url %></td>
           <td><%= urls[url] %>
           <td align="right"><form method="POST" action='/urls/<%= url %>' style="display: inline-block;">
-            <a href="/urls/<%= url %>" class="btn btn-info btn-sm">Edit</a>
+            <a href="/urls/<%= url %>" class="btn btn-info btn-xs">Edit</a>
           </form>
           <form method="POST" action='/urls/<%= url %>/delete' style="display: inline-block;">
-            <input type="submit" value="Delete &#10008" class="btn btn-danger btn-sm"></input>
+            <input type="submit" value="Delete &#10008" class="btn btn-danger btn-xs"></input>
           </form></td>
         </tr>
       <% } %>
+      </table>
     <% } else { %>
       <br/>
       <br/>
