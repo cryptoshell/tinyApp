@@ -1,21 +1,35 @@
 <!DOCTYPE html>
-
 <html>
-<head>
-  <title> Register </title>
-</head>
-<body>
-  <header>
-    <% include ./partials/_header %>
-  </header>
-  <h2>Register!</h2>
-    <form action="/register" method="POST" style="display: inline-block;">
-      <label for="email">Enter email:</label>
-      <input id="email" type="email" name="email" placeholder="contact@example.com" style="width: 300px"></input>
-      <br/>
-      <label for:"password">Enter password:</label>
-      <input id="password" type="password" name="password" placeholder="Enter password..." style="width: 200px"></input>
-      <input type="submit" value="register" style="background-color: grey; color: white"></input>
-    </form>
+  <head>
+    <title> Register </title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <header>
+      <% include ./partials/_header %>
+    </header>
+    <br/>
+    <div class="container">
+    <div class="row">
+      <div class="col-md-offset-4 col-md-4">
+        <div class="form-login">
+          <h4>Register</h4>
+          <form action="/register" method="POST">
+            <input id="email" type="email" name="email" placeholder="contact@example.com" class="form-control input-sm chat-input" </input>
+            </br>
+            <input id="password" type="password" name="password" placeholder="password" class="form-control input-sm chat-input"</input>
+            </br>
+            <div class="wrapper">
+            <span class="group-btn">
+              <input type="submit" value="register" class="btn btn-primary btn-sm"><i class="fa fa-sign-in"></i></input>
+            </span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    </div>
 </body>
 </html>

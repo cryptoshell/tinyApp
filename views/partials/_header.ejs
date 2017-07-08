@@ -1,21 +1,29 @@
 <!DOCTYPE html>
-
 <html>
   <head>
     <title>TinyApp</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
   </head>
   <body bgcolor="#B2B48C">
-    <a href="/urls">Home</a>
-    <a href="/urls/new">Create a New Short Link</a>
-    <center><h1 style="border-style: solid;">TinyApp&#9731</h1></center>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <ul class="nav nav-tabs">
+      <li role="presentation" class="active"><a href="/urls">Home</a></li>
+      <li role="presentation"><a href="/urls/new">New Short Link</a></li>
+    </ul>
+    <div class="jumbotron">
+      <div class="col-md-15 text-center">
+        <h1 id="logo">TinyApp&#9731</h1>
+        <p>Sharing Made Easy</p>
+      </div>
+    </div>
     <% if (user) { %>
-      <p style="position: absolute; top: 6px; right: 4px; width: 500px; text-align:right;">Logged in as <%= user.email %></p>
+      <p style="position: absolute; top: 0px; right: 60px; width: 600px; text-align:right;" class="btn btn-basic btn-xs">Logged in as <%= user.email %></p>
       <form action="/logout" method="POST" style="position: absolute; top: 0px; right: 4px; width: 100px; text-align:right;">
-        <input type="submit" value="logout" style="background-color: black; color: white"></input>
+        <input type="submit" value="logout" class="btn btn-info btn-xs"></input>
       </form>
       <center><h2 style="display: inline-block;">Welcome <%= user.email %>! </h2></center>
       <br/>
-    <% }else{ %>
     <% } %>
   </body>
 </html>

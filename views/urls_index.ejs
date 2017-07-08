@@ -1,33 +1,50 @@
 <!DOCTYPE html>
-
 <html lang="en">
   <head>
     <title>TinyApp</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
   </head>
   <body>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
     <header>
       <% include ./partials/_header %>
     </header>
+    <br/>
     <% if (user){ %>
+      <div class="container">
       <h3>Your Short Links:</h3>
-      <% for(let url in urls) { %>
-        <ul>
-          <li><%= url %> &#10144; <%= urls[url] %>
-          <form method="POST" action='/urls/<%= url %>' style="display: inline-block">
-            <a href="/urls/<%= url %>">Edit</a>
+      <table class="table table-hover">
+        <tr>
+          <th>Short URL</th>
+          <th>Long URL</th>
+          <th></th>
+        </tr>
+        <% for(let url in urls) { %>
+        <tr>
+          <td><%= url %></td>
+          <td><%= urls[url] %>
+          <td align="right"><form method="POST" action='/urls/<%= url %>' style="display: inline-block;">
+            <a href="/urls/<%= url %>" class="btn btn-info btn-xs">Edit</a>
           </form>
-          <form method="POST" action='/urls/<%= url %>/delete' style="display: inline-block">
-            <input type="submit" value="Delete &#10008" style="background-color: red; color: white; width: 70px"></input>
-          </form></li>
-        </ul>
+          <form method="POST" action='/urls/<%= url %>/delete' style="display: inline-block;">
+            <input type="submit" value="Delete &#10008" class="btn btn-danger btn-xs"></input>
+          </form></td>
+        </tr>
       <% } %>
     <% } else { %>
       <br/>
       <br/>
-      <b/>
-      <center><a href="/register" style="color: blue;">Register Now!</a></center>
-      <center><p>or</p></center>
-      <center><a href="/login" style="color: blue">Login</a> to access URLs!</center>
+      <br/>
+      <center>
+        <a href="/register" class="btn btn-info btn-lg">Register Now!</a>
+        <br/>
+        <br/>
+        <h4>or</h4>
+        <br/>
+        <a href="/login" class="btn btn-info btn-lg">Login</a>
+        <h5>to access URLs!</h5>
+      </center>
     <% } %>
   </body>
 </html>

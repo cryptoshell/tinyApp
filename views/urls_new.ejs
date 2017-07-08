@@ -1,18 +1,31 @@
 <!DOCTYPE html>
-
 <html lang="en">
-  <head></head>
+  <head>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+  </head>
   <body style="font-size:20px; padding:50px;">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
     <header>
       <% include ./partials/_header %>
     </header>
-    <br/>
-    <br/>
-    <br/>
-    <form action="/urls" method="POST" style="display: inline-block;">
-      <label for="longURL">Enter a URL:</label>
-      <input id="longURL" type="text" name="longURL" placeholder="http://" style="width: 300px"></input>
-      <input type="submit" value="Submit" style="background-color: grey; color:white"></input>
-    </form>
+    <div class="container">
+    <div class="row">
+      <div class="Absolute-Center is-Responsive">
+        <div class="form-login">
+          <h4>Create a New Short Link</h4>
+          <form action="/urls" method="POST">
+            <input id="longURL" type="text" name="longURL" placeholder="http://" class="form-control input-sm chat-input" </input>
+            <div class="wrapper">
+            <span class="group-btn">
+              <br/>
+              <input type="submit" value="Submit" class="btn btn-primary btn-sm" style="float: right"><i class="fa fa-sign-in"></i></input>
+            </span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    </div>
   </body>
 </html>

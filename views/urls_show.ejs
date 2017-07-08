@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-
 <html lang="en">
   <head>
     <title>TinyApp</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
   </head>
   <body>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
    <header>
       <% include ./partials/_header %>
     </header>
@@ -16,12 +18,11 @@
         <input type="submit" value="Update" style="background-color: yellow"></input>
       </form>
     <% } else { %>
-      <br/>
-      <br/>
-      <center><a href="/register" style="color: blue;">Register Now!</a></center>
-      <b/>
-      <center><p>or</p></center>
-      <center><a href="/login" style="color: blue">Login</a> to access URLs!</center>
+      <center>
+      <a href="/register" class="btn btn-info btn-xs">Register Now!</a>
+      <p>or</p>
+      <a href="/login" style="color: blue">Login</a> to access URLs!
+      </center>
     <% } %>
   </body>
 </html>
