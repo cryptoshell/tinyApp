@@ -12,6 +12,7 @@ The app will allow users to shorten long URLs much like TinyURL.com and bit.ly d
 !["Login Page"](/tinyAppScreenshots/tinyApp-login.png "Login Page")
 !["Main Page"](/tinyAppScreenshots/tinyApp-mainUrls.png "Main Page Showing URLs")
 !["New URL Page"](/tinyAppScreenshots/tinyApp-new.png "Create New Short URL Page")
+!["Update URL Page"](/tinyAppScreenshots/tinyApp-update.png "Update a Short URL Page")
 
 ## Dependencies
 - Node.js
