@@ -91,16 +91,19 @@ app.post("/urls", (req, res) => {
   const shortURL = generateRandomString();
   if (urlDatabase[userID] === undefined) {
     urlDatabase[userID] = {};
-    if(req.body.longURL !== "") {
+    if (req.body.longURL !== "") {
       urlDatabase[userID][shortURL] = req.body.longURL;
     } else {
       res.send("Cannot enter a blank URL");
     }
   } else {
-    urlDatabase[userID][shortURL] = req.body.longURL;
+    if (req.body.longURL !== "") {
+      urlDatabase[userID][shortURL] = req.body.longURL;
+      res.redirect("/urls");
+    } else {
+      res.send("Cannot enter a blank URL");
+    }
   }
-  console.log(urlDatabase);
-  res.redirect("/urls");
 });
 
 // Redirection using shortURL
